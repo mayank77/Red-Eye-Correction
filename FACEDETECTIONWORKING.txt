@@ -1,0 +1,75 @@
+#include "cuda_runtime.h"
+#include "device_launch_parameters.h"
+#include <iostream>
+#include <conio.h>
+#include <opencv/cv.h>
+#include <opencv/ml.h>
+#include <opencv/highgui.h>
+
+using namespace cv;
+using namespace std;
+
+
+CvHaarClassifierCascade *cascade;
+CvMemStorage *storage;
+CvSeq *faces;
+
+void detectFaces(IplImage *img, IplImage *temp_img, int frame_no);
+int i;	//CHECK
+char img1[50],img2[50],img3[50];	//CHECK
+int main( int argc, char** argv )
+{
+
+	IplImage *img, *temp_img; 
+
+	img=cvLoadImage("C:\\Users\\STUD3\\Desktop\\faces.jpg");
+	temp_img=cvLoadImage("C:\\Users\\STUD3\\Desktop\\faces.jpg");
+	char *filename = "E:\\opencv\\sources\\data\\haarcascades\\haarcascade_frontalface_default.xml";
+	cascade = ( CvHaarClassifierCascade* )cvLoad( filename, 0, 0, 0 );
+	storage = cvCreateMemStorage( 0 );
+	cvClearMemStorage (storage);
+	cvNamedWindow("img1", CV_WINDOW_AUTOSIZE);
+	cvShowImage("img1", img);
+	detectFaces(img,temp_img,0);
+	cvWaitKey(0);
+	cvDestroyWindow("img1");
+	cvReleaseImage(&img);
+	cvReleaseImage(&temp_img);
+	cvReleaseHaarClassifierCascade( &cascade );
+	cvReleaseMemStorage( &storage );
+    return 0;	
+}
+
+
+
+void detectFaces( IplImage *img, IplImage *temp_img, int frame_no)
+{
+  
+	CvSeq* faces;
+    CvRect *r,faceROI;
+    if( cascade )
+        faces = cvHaarDetectObjects(img,cascade, storage, 1.2, 2, 0, cvSize(20, 20));
+	else
+        printf("\nFrontal face cascade not loaded\n");
+		
+     
+	for(int i = 0 ; i < ( faces ? faces->total : 0 ) ; i++ )
+    {        
+		r = ( CvRect* )cvGetSeqElem( faces, i );
+        cvRectangle(img,cvPoint( r->x, r->y ),cvPoint( r->x + r->width, r->y + r->height ),
+                     CV_RGB( 255, 255, 0 ), 1, 8, 0 );    
+		
+		/*sprintf(win_name3,"Frame - %d Face - %d - Output",frame_no, i+1);
+
+		faceROI = cvRect(r->x, r->y, r->width, r->height);  
+
+		cvSetImageROI(img, faceROI);
+		sprintf(out_path,"E:\\Sabu\\Output\\%d%d.jpg",frame_no, i+1);
+        cvSaveImage(out_path, img);*/ 
+
+		temp_img = cvCloneImage(img);
+		cvNamedWindow(img3, CV_WINDOW_AUTOSIZE);
+		cvShowImage(img3, temp_img);
+	}
+	cvResetImageROI(img);
+ }

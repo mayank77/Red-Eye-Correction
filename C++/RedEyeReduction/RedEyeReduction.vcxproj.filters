@@ -1,0 +1,48 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="Program.cpp" />
+    <ClCompile Include="stdafx.cpp">
+      <Filter>c</Filter>
+    </ClCompile>
+    <ClCompile Include="Utilities.cpp">
+      <Filter>c</Filter>
+    </ClCompile>
+    <ClCompile Include="GpuTimer.cpp">
+      <Filter>c</Filter>
+    </ClCompile>
+    <ClCompile Include="RedEyeFilter.cpp">
+      <Filter>c</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="c">
+      <UniqueIdentifier>{f66bfc12-70c5-407d-b089-b4966123b725}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="h">
+      <UniqueIdentifier>{3cbc6323-8d51-4052-8077-e394e914f7be}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Kernels">
+      <UniqueIdentifier>{4fc4ab25-8fb0-476d-870e-eec03db6cbee}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="stdafx.h">
+      <Filter>h</Filter>
+    </ClInclude>
+    <ClInclude Include="Utilities.h">
+      <Filter>h</Filter>
+    </ClInclude>
+    <ClInclude Include="GpuTimer.h">
+      <Filter>h</Filter>
+    </ClInclude>
+    <ClInclude Include="RedEyeFilter.h">
+      <Filter>h</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <CudaCompile Include="RedEyeFilter.cu">
+      <Filter>Kernels</Filter>
+    </CudaCompile>
+  </ItemGroup>
+</Project>

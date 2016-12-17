@@ -1,0 +1,23 @@
+%{
+#include<stdio.h>
+int x=1;
+%}
+%TOKEN ENTER EXPR ID LP RP GR LS GE LF RF LE E NE IFE ELSES SPC ERROR
+%%
+s: IFE LP expr RP ENTER xpr ENTER {printf("Valid\n");printf("no of nested if's=%d\n",x); exit(0);}
+expr: op cm op|op
+xpr: ELSES|ELSES SPC s|nst|;
+op: ID|EXPR
+nst: LF s RF {x++;}
+cm: GR|LS|GE|LE|E|NE
+%%
+main()
+{
+printf("Enter the expression: ");
+yyparse();
+printf("Number of nested if = %d",x);
+}
+yyerror()
+{
+printf("Invalid\n");
+}

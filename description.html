@@ -1,0 +1,275 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+    <head><link rel="stylesheet" type="text/css" href="description/Combined.css,0:HeaderFooterSprite,0:Header.NonMtps,1:LinkList;/Areas/Centers/Themes/StandardDevCenter/Content:0,/Areas/Epx/Themes/Base/Content:1&amp;amp;hashKey=C9973DA951AE6202C9B348379A1BE49D" xmlns="http://www.w3.org/1999/xhtml" />
+<link type="text/css" rel="stylesheet" xmlns="http://www.w3.org/1999/xhtml" />
+<link rel="stylesheet" type="text/css" href="description/9bf1b74c-1640-46af-84d3-e440c8f95162Combined.css,0:HeaderFooterSprite,0:Footer.NonMtps,1:LinkList;/Areas/Centers/Themes/StandardDevCenter/Content:0,/Areas/Epx/Themes/Base/Content:1&amp;amp;hashKey=F576C687BC536B84D6E5B3246EE39B49" xmlns="http://www.w3.org/1999/xhtml" />
+<link type="text/css" rel="stylesheet" xmlns="http://www.w3.org/1999/xhtml" />
+
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <title>Red-eye Removal with CUDA</title>
+        <link href="description/Galleries.css" type="text/css" rel="Stylesheet" /><link href="description/Layout.css" type="text/css" rel="Stylesheet" /><link href="description/Brand.css" type="text/css" rel="Stylesheet" />
+        <link href="description/iframedescription.css" rel="Stylesheet" type="text/css" />
+        <script src="description/offline.js" type="text/javascript"></script>
+        <style type="text/css">
+            #projectInfo {
+                overflow: auto;
+            }
+            #longDesc {
+                clear:both;
+                margin: 25px 0 10px 0;
+            }
+
+            #SampleIndexList{
+                margin-left: 15px;
+            }
+        </style>
+    </head>
+<body>
+    <div id="offlineDescription">
+        <h1>Red-eye Removal with CUDA</h1>
+        <br/>
+        <div id="projectInfo">
+            <div class="section">
+                    <div class="itemBarLong tagsContainer">
+                        <label for="Technologies">Technologies</label>
+                        <div id="Technologies">
+                            C++, Parallel Programming, CUDA, GPGPU
+                        </div>
+                    </div>
+                    <div class="itemBarLong tagsContainer">
+                        <label for="Topics">Topics</label>
+                        <div id="Topics">
+                            Parallel Programming, Image manipulation, CUDA, GPGPU
+                        </div>
+                    </div>
+                <div class="itemBarLong">
+                    <label for="Platforms">Platforms</label>
+                    <div id="Platforms">
+                        Desktop
+                    </div>
+                </div>
+                <div class="itemBarLong">
+                    <label for="Requirements">Requirements</label>
+                    <div id="Requirements">
+                        
+                    </div>
+                </div>
+                <div class="itemBar">
+                    <label for="LastUpdated">Primary language</label>
+                    <div id="LastUpdated">en-US</div>
+                </div>
+                <div class="itemBar">
+                    <label for="LastUpdated">Updated</label>
+                    <div id="LastUpdated">10/11/2013</div>
+                </div>
+                <div class="itemBarLong">
+                    <label for="License">License</label>
+                    <div id="License">
+                        <a href="license.rtf">Apache License, Version 2.0</a></div>
+                </div>
+                <div class="itemBar">
+                    <div class="viewonlinecont">
+                        <a data-link="online" href="http://code.msdn.microsoft.com/Red-eye-Removal-with-CUDA-10965f4e">View this sample online</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+                   
+<script type="text/javascript">
+    function initializePage() {
+        var otherTabClass = 'otherTab';
+        var hiddenPreClass = 'hidden';
+
+        var htmlDecode = function(encodedData) {
+            var decodedData = "";
+            if (encodedData) {
+                var div = document.createElement('div');
+                div.innerHTML = encodedData;
+                decodedData = div.firstChild.nodeValue.replace( /\\r\\n/ig , '\r\n');
+            }
+            return decodedData;
+        };
+                
+        Galleries.iterateElem(Galleries.findElem(null, 'div', 'scriptcode'), function (index, scriptBlock) {
+            var titleElem = Galleries.findElem(scriptBlock, 'div', 'title')[0];
+            var labelElems = Galleries.findElem(titleElem, 'span');
+            if (labelElems.length == 0) {
+                labelElems = titleElem;
+            }
+            var languageSpans = Galleries.findElem(scriptBlock, 'span', 'hidden');
+            var pres = Galleries.findElem(scriptBlock, 'pre');
+            if (languageSpans.length > 0 && pres.length > 1) {
+                Galleries.iterateElem(labelElems, function(index, elem) {
+                    var codePre = pres[index];
+                    var labelSpan = elem;
+                    var languageSpan = languageSpans[index];
+                            
+                    elem.code = codePre.innerHTML.replace( /(\r(\n)?)|((\r)?\n)/ig , '\\r\\n');
+                            
+                    codePre.className = codePre.className.replace(hiddenPreClass, '');
+                            
+                    languageSpan.parentNode.removeChild(languageSpan);
+                });
+
+                pres = Galleries.findElem(scriptBlock, 'pre');
+                Galleries.iterateElem(labelElems, function(index, elem) {
+                    var codePre = pres[index];
+                    var labelSpan = elem;
+                    if (index == 0) {
+                        scriptBlock.activeTab = 0;
+                    }
+                    else {
+                        labelSpan.className += otherTabClass;
+                        codePre.className += hiddenPreClass;
+                    }
+                    Galleries.attachEventHandler(labelSpan, 'click', function(e) {
+                        var activeTab = scriptBlock.activeTab;
+                        labelElems[activeTab].className += otherTabClass;
+                        pres[activeTab].className += hiddenPreClass;
+
+                        codePre.className = codePre.className.replace(hiddenPreClass, '');
+                        labelSpan.className = labelSpan.className.replace(otherTabClass, '');
+                        scriptBlock.activeTab = index;
+                    });
+                });
+
+                var preview = Galleries.findElem(scriptBlock, 'div', 'preview');
+                if (preview.length == 0) {
+                    preview.push(pres[pres.length - 1]);
+                }
+                Galleries.iterateElem(preview, function(index, elem) {
+                    elem.parentNode.removeChild(elem);
+                });
+
+                if (window.clipboardData && clipboardData.setData) {
+                    var copyLink = document.createElement('a');
+                    copyLink.href = 'javascript:void(0);';
+                    copyLink.className = 'copyCode';
+                    copyLink.innerHTML = 'Copy code';
+                    Galleries.attachEventHandler(copyLink, 'click', function (e) {
+                        clipboardData.setData("Text", htmlDecode(labelElems[scriptBlock.activeTab].code));
+                        return false;
+                    });
+                    scriptBlock.insertBefore(copyLink, scriptBlock.childNodes[0]);
+                }
+            }
+        });
+    }
+
+    Galleries.onWindowLoad(function(){
+        initializePage();
+    });
+
+</script>
+<div id="longDesc">
+    
+<h2 style="color:#9900ff; font-family:Georgia,'Times New Roman',Times,serif; font-size:large">
+Introduction</h2>
+<p style="font-size:small">This code demonstrates basic steps for red-eye correction in pictures. It requires a picture of someone with red eyes and&nbsp;a small template file which is a picture of a red eye to help us find eyes in the original picture. While
+ the sample works with the picture that I tested it with, it requires refinement to work with any image. The code also suffers when you try to pass large in size pictures. But that is a good start if you want to learn how red-eye correction is done. Below screenshot
+ displays an output from the program.</p>
+<p><img id="97792" src="/vstudio/site/view/file/97792/1/release-mode.PNG" alt="" width="486" height="443">&nbsp;</p>
+<p style="font-size:small">Here are the original picture and the eye template:</p>
+<p><img id="97800" src="description/RedEye-girl.jpg" alt="" width="424" height="520">&nbsp;</p>
+<p><img id="97801" src="description/t1.jpg" alt="" width="33" height="33">&nbsp;</p>
+<p style="font-size:small">And this is the image of the girl after running the code:</p>
+<p><img id="97802" src="description/RedEye-girl-copy.jpg" alt="" width="424" height="520">&nbsp;</p>
+<p style="font-size:small">The flowchart diagram below shows the main steps in the code execution:</p>
+<p><img id="97803" src="description/flow.PNG" alt="" width="356" height="858">&nbsp;</p>
+<h2 style="color:#9900ff; font-family:Georgia,'Times New Roman',Times,serif; font-size:large">
+Main function (program entry point)</h2>
+<p style="font-size:small">Solution consists of RedEyeFilter helper class to get the code running and a file containing CUDA kernels. To launch the program, we need to create the helper class and pass to it locations of the picture of a person with red eyes,
+ name of the fixed picture after we remove redness, and the location of a template file which the code will use to identify pixels in the original picture that must be corrected.</p>
+<p><img id="97804" src="description/solution.PNG" alt="" width="274" height="305">&nbsp;</p>
+<p style="font-size:small">To simplify writing the code we will add the following string to the Command Arguments under the project settings:</p>
+<p><img id="97805" src="description/debugging.PNG" alt="" width="951" height="619">&nbsp;</p>
+<p style="font-size:small">We also need to ensure that CUDA compute version is set to at least 2.0. It is necessary because we will be using some features that are not available to earlier CUDA versions.</p>
+<p><img id="97806" src="description/compute-capability.png" alt="" width="852" height="605">&nbsp;</p>
+<p style="font-size:small">And of interest to us are also post-build event where we will add script to copy media files into the output folder:</p>
+<p><img id="97807" src="description/build events.PNG" alt="" width="963" height="611">&nbsp;</p>
+<p style="font-size:small">Once the project is configured, we can instantiate RedEyeFilter class and launch the code.</p>
+<p><img id="97808" src="description/1.PNG" alt="" width="525" height="214">&nbsp;</p>
+<h2 style="color:#9900ff; font-family:Georgia,'Times New Roman',Times,serif; font-size:large">
+Load picture</h2>
+<p style="font-size:small">First, we have to load both the image requiring correction and red-eye template.</p>
+<p><img id="97809" src="description/2.PNG" alt="" width="360" height="94">&nbsp;</p>
+<p style="font-size:small">We use OpenCV library to open the files and populate in-memory vector structures:</p>
+<p><img id="97810" src="description/image_host_t.PNG" alt="" width="473" height="138">&nbsp;</p>
+<p style="font-size:small">Here&rsquo;s the code that opens the images and populates vector structure:</p>
+<p><img id="97811" src="description/3.PNG" alt="" width="688" height="915">&nbsp;</p>
+<h2 style="color:#9900ff; font-family:Georgia,'Times New Roman',Times,serif; font-size:large">
+Process image</h2>
+<p style="font-size:small">Once images are loaded and in the host memory, we can execute our CUDA kernels to do their magic. We need to:</p>
+<ul style="list-style-type:decimal; font-size:small">
+<li>Separate RGB channels; </li><li>Compute template mean for each channel; </li><li>Compute cross-correlation between the template and the picture; </li><li>Sort correlated values in the ascending order where read pixel positions will be at the top of the sorted list;
+</li><li>Replace color of the arbitrary number of top pixels in the red channel with an averaged color from blue and green channels.
+</li></ul>
+<p style="font-size:small">Here&rsquo;s the function that orchestrates all steps:</p>
+<p><img id="97812" src="description/4.PNG" alt="" width="878" height="937">&nbsp;</p>
+<h3 style="color:#3366cc; font-family:Georgia,'Times New Roman',Times,serif; font-size:medium">
+Separate channels</h3>
+<p style="font-size:small">Before we run kernels, we have to copy data to the GPU. RedEyeData structure helps organize containers that will be loaded into the device memory.</p>
+<p><img id="97813" src="description/device-structures.PNG" alt="" width="722" height="343">&nbsp;</p>
+<p style="font-size:small">To help separate channels, we will create a SplitChannels structure.</p>
+<p><img id="97814" src="description/split-channels.PNG" alt="" width="756" height="157">&nbsp;</p>
+<p style="font-size:small">We first copy both picture and re-eye template to the device and then invoke thrust library transform function which will take image input for each pixel and copy individual channels to the red, green, and blue containers.</p>
+<p><img id="97815" src="description/split-channels-2.PNG" alt="" width="852" height="660">&nbsp;</p>
+<h3 style="color:#3366cc; font-family:Georgia,'Times New Roman',Times,serif; font-size:medium">
+Compute template mean</h3>
+<p style="font-size:small">For each channel we have to compute average color value. We use thrust library to help with that task: we total all color values and divide by number of pixels.</p>
+<p><img id="97816" src="description/mean.PNG" alt="" width="828" height="268">&nbsp;</p>
+<h3 style="color:#3366cc; font-family:Georgia,'Times New Roman',Times,serif; font-size:medium">
+Compute cross correlation</h3>
+<p style="font-size:small">That&rsquo;s where important logic starts. First, we create a container to store correlated values which will be of type float. We need to compute cross correlation between each image pixel in every channel and the red-eye template
+ box, then multiply all channel values to arrive to the final array of correlated values.</p>
+<p style="font-size:small">In signal processing, cross-correlation is a measure of similarity of two waveforms as a function of a time-lag applied to one of them. This is also known as a sliding dot product or sliding inner-product. It is commonly used for
+ searching a long-signal for a shorter, known feature. It also has applications in pattern recognition, single particle analysis, electron tomographic averaging, cryptanalysis, and neurophysiology.</p>
+<p><img id="97817" src="description/5.PNG" alt="" width="644" height="79">&nbsp;</p>
+<p style="font-size:small">In the following screenshot we show instantiation of the kernel for red channel. Important is the size of the block: 256 pixels. My GPU card supports blocks of 1024 elements (threads) but that would not provide best performance and
+ may not even work at all. Please read my article explaining GPU architecture to understand how to select optimal thread sizes per execution block.</p>
+<p><img id="97818" src="description/6.PNG" alt="" width="867" height="729">&nbsp;</p>
+<p style="font-size:small">Here&rsquo;s a na&iuml;ve, simplified cross-correlation kernel.</p>
+<p><img id="97820" src="description/9.PNG" alt="" width="979" height="755">&nbsp;</p>
+<p><img id="97821" src="description/10.PNG" alt="" width="1034" height="807">&nbsp;</p>
+<p style="font-size:small">Once correlation values have been computed, we can multiply pixels from each channel. For that we will create another helper structure: CombineResponses.</p>
+<p><img id="97822" src="description/combine-responses.PNG" alt="" width="607" height="156">&nbsp;</p>
+<p style="font-size:small">Now we can pass the structure to thrust library function transform. In order to simplify sorting, we will remove all negative values from the array by adding to each value the smallest number in the array.</p>
+<p><img id="97824" src="description/7.PNG" alt="" width="781" height="365">&nbsp;</p>
+<h3 style="color:#3366cc; font-family:Georgia,'Times New Roman',Times,serif; font-size:medium">
+Sort cross-correlated pixels</h3>
+<p style="font-size:small">We need to sort pixels in ascending order to identify those we need to replace. Here you should experiment with writing radix sort algorithm on the GPU. The basic idea behind radix sort is to construct a histogram on each pass of
+ how many of each &quot;digit&quot; there are. Then we need to scan the histogram to tell us where to put the output of each digit. For example, the first 1 must come after all the 0s, so we have to know how many 0s there are.</p>
+<ul style="list-style-type:decimal; font-size:small">
+<li>Histogram of the number of occurrences of each digit </li><li>Exclusive Prefix Sum of Histogram </li><li><span>Determine relative offset of each digit</span>
+<pre style="font-family:'Courier New',Courier,monospace">For example [0 0 1 1 0 0 1]
+         -&gt; [0 1 0 1 2 3 2]</pre>
+</li><li>Combine results of steps 2 &amp; 3 to determine the final output location for each element and move it there.
+</li></ul>
+<p style="font-size:small">LSB Radix sort is an out-of-place sort and you will need to ping-pong values between the input and output buffers. Final sorted results are placed into the output buffer.</p>
+<p style="font-size:small">Important, we are not interested in the correlated values, rather in their positions. That is why we are creating sortedCoords container which will later be used to remove red pixels from the original picture.</p>
+<p><img id="97825" src="description/8.PNG" alt="" width="820" height="114">&nbsp;</p>
+<p style="font-size:small">I&rsquo;ll cheat here and use thrust library to sort correlated values and their coordinates. But first we need to cast floats to integers in such a way that we are not interested in the exact cast, but rather in the relative order
+ of the values. So, we will do an imprecise and strange conversion by doing memcopy from float type to integer type resulting in strange values but fulfilling our condition.</p>
+<p><img id="97826" src="description/11.PNG" alt="" width="957" height="455">&nbsp;</p>
+<h3 style="color:#3366cc; font-family:Georgia,'Times New Roman',Times,serif; font-size:medium">
+Remove redness</h3>
+<p style="font-size:small">We only need to replace small number of pixels in the original picture, so here&rsquo;s where we do some magic. I mean, this code is something you would want to seriously improve if you want it to work for every image. Here, for this
+ example, we&rsquo;ll pic first 40 pixels and even though our template size is 17-pixel box, we&rsquo;ll only use 9 of them on each side. As a result of the kernel call we&rsquo;ll get back modified red channel after which we can combine all channels back into
+ the final image.</p>
+<p><img id="97827" src="description/12.PNG" alt="" width="948" height="747">&nbsp;</p>
+<p style="font-size:small">Where CombineChannels looks like this:</p>
+<p><img id="97828" src="description/14.PNG" alt="" width="775" height="155">&nbsp;</p>
+<p style="font-size:small">Here&rsquo;s the final kernel:</p>
+<p><img id="97829" src="description/13.PNG" alt="" width="962" height="681">&nbsp;</p>
+<h2 style="color:#9900ff; font-family:Georgia,'Times New Roman',Times,serif; font-size:large">
+Save image copy</h2>
+<p style="font-size:small">Now we can take the final image and pass it back to OpenCV for saving it to the disk.</p>
+<p><img id="97830" src="description/15.PNG" alt="" width="745" height="284">&nbsp;</p>
+
+</div>
+
+
+    </div>
+</body>
+</html>

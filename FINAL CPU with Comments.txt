@@ -1,0 +1,83 @@
+#include "cuda_runtime.h"
+#include "device_launch_parameters.h"
+#include <iostream>
+#include <conio.h>
+#include <opencv/cv.h>
+#include <opencv/ml.h>
+#include <opencv/highgui.h>
+
+using namespace cv;
+using namespace std;
+
+
+CvHaarClassifierCascade *cascade;	 /* Classifiers are trained with a few hundred sample views
+										of a particular object ex. a face or a car) */
+
+CvMemStorage *storage;		//A storage for various OpenCV dynamic data structures, such as CvSeq, CvSet etc.
+
+CvSeq *faces;		//Sequence of objects in opencv ; Used for extraction destination in our program.
+
+void detectFaces(IplImage *img, IplImage *temp_img, int frame_no);
+
+int i;
+
+int main( int argc, char** argv )
+{
+
+	IplImage *img, *temp_img; 
+
+	img=cvLoadImage("C:\\Users\\STUD3\\Desktop\\eye1.jpg");		//Loading the original red-eye image
+	temp_img=cvLoadImage("C:\\Users\\STUD3\\Desktop\\eye1.jpg");	//Loading the original red-eye image
+	char *filename = "E:\\opencv\\sources\\data\\haarcascades\\haarcascade_eye.xml";	//Loading XML file for eye comparison
+	cascade = ( CvHaarClassifierCascade* )cvLoad( filename, 0, 0, 0 );	//Cascade takes the above XML file as reference.
+	storage = cvCreateMemStorage( 0 );	//Initializing memmory to NULL
+	detectFaces(img,temp_img,0);	//Calling the function
+	cvWaitKey(0);	//Wait for a keypress
+	cvReleaseImage(&img);	//Similar to destruct function
+	cvReleaseImage(&temp_img);	//Similar to destruct function
+	cvReleaseHaarClassifierCascade( &cascade );	//Breaking the connection between XML file and the cascade.
+												//XML File contains compiled data through which we can compare & detect eyes.
+	cvReleaseMemStorage( &storage );	//Releasing memory
+    return 0;	
+}
+
+
+
+void detectFaces( IplImage *img, IplImage *temp_img, int frame_no)
+{
+	IplImage *img2;
+	CvSeq* faces;	//Sequence of Eye Extracts
+    CvRect *r, faceROI;
+    if( cascade )	//If cascade connection was properly made with XML file
+      faces = cvHaarDetectObjects(img, cascade, storage, 1.2, 2, 0, cvSize(1, 1));	//Detect by comparing image with XML file
+	else
+        printf("\nCascade not loaded\n");
+     
+	for(int i = 0 ; i < ( faces ? faces->total : 0 ) ; i++ )
+    {   
+		r = ( CvRect* )cvGetSeqElem( faces, i );	//Loading the extracted image at index 'i' in the sequence
+        cvRectangle(img,cvPoint( r->x, r->y ),cvPoint( r->x + r->width, r->y + r->height ),
+                     CV_RGB( 255, 255, 0 ), 1, 8, 0 );		//Actually drwaing the rectangle around the extracted image.
+		faceROI = cvRect(r->x, r->y, r->width, r->height);		//Setting the ROI
+		img2=cvLoadImage("C:\\Users\\STUD3\\Desktop\\eye1.jpg");	//Changes in eye will be done in this IPL Image
+		cvSetImageROI(img2, faceROI);	//Setting ROI
+		Mat imgx(img2);		//Converting to Mat format from IPL format so that we can manipulate pixel values
+		for(int i = 0; i < imgx.rows; i++)
+		{
+			for(int j = 0; j < imgx.cols; j++)
+			 {
+				 Point3_<uchar>* p = imgx.ptr<Point3_<uchar> >(j,i);	//Accessing pixel
+				 if(p->z > (p->x + p->y)/2+10&&p->z>100&&((p->z-p->x)>50||(p->z-p->y)>50)&&p->y<130&&p->x<130)
+				 {
+						printf("%d\n", p->z);	//Printing pixel intensity values
+						p->z=(p->x+p->y)/2+10;	//Removing the red-eye why neutralizing the red eye value
+				 }
+			}
+		}
+		img2=cvCloneImage(&(IplImage)imgx);		//Convert back to IPL image
+		cvNamedWindow("img2", CV_WINDOW_AUTOSIZE);	//Create frame to show image in
+		cvShowImage("img2", img2);	//Display image in frame
+		waitKey(0);		//Wait for keypress
+	}
+	cvResetImageROI(img);	//Reset
+}

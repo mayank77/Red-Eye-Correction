@@ -1,0 +1,10 @@
+#include<stdio.h>	header file
+void		datatype
+main		funtions
+printf		funtions
+"helloworld"		String
+//printing	comment
+int		datatype
+a		variable
+=		asignment operator
+5		constants

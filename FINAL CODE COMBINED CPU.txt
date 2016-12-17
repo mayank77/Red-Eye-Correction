@@ -1,0 +1,119 @@
+#include "cuda_runtime.h"
+#include "device_launch_parameters.h"
+#include <iostream>
+#include <conio.h>
+#include <opencv/cv.h>
+#include <opencv/ml.h>
+#include <opencv/highgui.h>
+
+using namespace cv;
+using namespace std;
+
+
+CvHaarClassifierCascade *cascade;
+CvMemStorage *storage;
+CvSeq *faces;
+int x[20][4];
+int ji=0;
+
+void detectFaces(IplImage *img, IplImage *temp_img, int frame_no);
+int i;
+int main( int argc, char** argv )
+{
+
+	IplImage *img, *temp_img; 
+
+	img=cvLoadImage("C:\\Users\\STUD3\\Desktop\\eye1_2.jpg");
+	temp_img=cvLoadImage("C:\\Users\\STUD3\\Desktop\\eye1_2.jpg");
+	char *filename = "E:\\opencv\\sources\\data\\haarcascades\\haarcascade_eye.xml";
+	cascade = ( CvHaarClassifierCascade* )cvLoad( filename, 0, 0, 0 );
+	storage = cvCreateMemStorage( 0 );
+	cvClearMemStorage (storage);
+	detectFaces(img,temp_img,0);
+	cvWaitKey(0);
+	cvReleaseImage(&img);
+	cvReleaseImage(&temp_img);
+	cvReleaseHaarClassifierCascade( &cascade );
+	cvReleaseMemStorage( &storage );
+    return 0;	
+}
+
+
+
+void detectFaces( IplImage *img, IplImage *temp_img, int frame_no)
+{
+	IplImage *img2;
+	CvSeq* faces;
+    CvRect *r,faceROI;
+    if( cascade )
+      faces = cvHaarDetectObjects(img,cascade, storage, 1.2, 2, 0, cvSize(1, 1));
+	else
+        printf("\nFrontal face cascade not loaded\n");
+     
+	for(int i = 0 ; i < ( faces ? faces->total : 0 ) ; i++ )
+    {   
+		r = ( CvRect* )cvGetSeqElem( faces, i );
+        cvRectangle(img,cvPoint( r->x, r->y ),cvPoint( r->x + r->width, r->y + r->height ),
+                     CV_RGB( 255, 0, 0 ), 1, 8, 0 ); 
+		//cvNamedWindow("img", CV_WINDOW_AUTOSIZE);	//Create frame to show image in
+		//cvShowImage("img", img);	//Display image in frame
+		faceROI = cvRect(r->x, r->y, r->width, r->height);
+		img2=cvLoadImage("C:\\Users\\STUD3\\Desktop\\eye1_2.jpg");
+		cvSetImageROI(img2, faceROI);
+		x[ji][0]=r->x;
+		x[ji][1]=r->y;
+		x[ji][2]=r->width;
+		x[ji][3]=r->height;
+		ji++;
+		//printf("%d\t%d\t%d\t%d\n",r->x, r->y, r->width, r->height);
+		//waitKey(0);
+		/*Mat imgx(img2);
+		for(int i = 0; i < imgx.rows; i++)
+		{
+			for(int j = 0; j < imgx.cols; j++)
+			 {
+				 Point3_<uchar>* p = imgx.ptr<Point3_<uchar> >(j,i);
+				 if(p->z > (p->x + p->y)/2+10&&p->z>100&&((p->z-p->x)>50||(p->z-p->y)>50)&&p->y<130&&p->x<130)
+				 {
+						printf("%d\n", p->z);
+						p->z=(p->x+p->y)/2+10;
+				 }
+			}
+		}
+		img2=cvCloneImage(&(IplImage)imgx);*/
+		//cvNamedWindow("img2", CV_WINDOW_AUTOSIZE);
+		//cvShowImage("img2", img2);
+		//waitKey(0); 
+	}
+		img2=cvLoadImage("C:\\Users\\STUD3\\Desktop\\eye1_2.jpg");
+	Mat imgx(img2);	//Converting to Mat format from IPL format so that we can manipulate pixel values
+	//printf("%d",ji);
+		for(int we=ji;we>=0;we--)
+		{
+			//printf("$$ %d %d $$\n",x[we][0],x[we][1]);
+		for(int i = x[we][0]; i < (x[we][0]+x[we][2]); i++)
+		{
+			for(int j = x[we][1]; j < (x[we][1]+x[we][3]);j++)
+			 {
+				 Point3_<uchar>* p = imgx.ptr<Point3_<uchar> >(j,i);
+				 //p->x=0;p->y=0;p->z=0;
+				 if(p->z > (p->x + p->y)/2+10&&p->z>100&&((p->z-p->x)>50||(p->z-p->y)>50)&&p->y<130&&p->x<130)
+				 {
+						//printf("%d\n", ji);
+						p->z=(p->x+p->y)/2+10;
+				 }
+			}
+
+		}
+		//img2=cvCloneImage(&(IplImage)imgx);		//Convert back to IPL image
+		//cvNamedWindow("img2", CV_WINDOW_AUTOSIZE);	//Create frame to show image in
+		//cvShowImage("img2", img2);	//Display image in frame
+		//waitKey(0);
+		}
+		
+		img2=cvCloneImage(&(IplImage)imgx);		//Convert back to IPL image
+		cvNamedWindow("img2", CV_WINDOW_AUTOSIZE);	//Create frame to show image in
+		cvShowImage("img2", img2);	//Display image in frame
+		waitKey(0);		//Wait for keypress
+	cvResetImageROI(img);
+}
